@@ -1,0 +1,43 @@
+/**
+ * glDatePicker
+ */
+.glDatePicker {
+  display: none;
+  position: absolute;
+  top: 0; left: 0;
+
+  /* calendar style */
+  .calendar {
+    display: none;
+    background-color: #fff;
+    box-shadow: 2px 2px 5px #e3e3e3;
+
+    /* calendar head */
+    .head {
+      width: 240px;
+      height: 30px;
+      border: 1px solid #ccc;
+
+      .prev, .next .title {
+        display: block;
+        float: left;
+        height: 30px;
+        margin: 0;
+        padding: 0;
+        line-height: 30px;
+        vertical-align: baseline;
+        text-align: center;
+
+      }
+      .prev, .next {
+        width: 30px;
+      }
+
+      .title {
+        width: 180px;
+      }
+    }
+    table {}
+  }
+
+}
