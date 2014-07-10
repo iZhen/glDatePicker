@@ -1,10 +1,13 @@
-/**
+/*!
  * glDatePicker
+ * base on bootstrap v3.20
  */
 .glDatePicker {
   display: none;
   position: absolute;
   top: 0; left: 0;
+
+  * { box-sizing: content-box;}
 
   /* calendar style */
   .calendar {
@@ -18,19 +21,17 @@
       height: 30px;
       border: 1px solid #ccc;
 
-      .prev, .next .title {
-        display: block;
-        float: left;
+      .prev, .next, .title {
+        display: inline-block;
         height: 30px;
         margin: 0;
         padding: 0;
-        line-height: 30px;
         vertical-align: baseline;
         text-align: center;
-
       }
       .prev, .next {
         width: 30px;
+        cursor: pointer;
       }
 
       .title {
