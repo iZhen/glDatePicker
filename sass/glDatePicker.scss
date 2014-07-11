@@ -5,9 +5,17 @@
 .glDatePicker {
   display: none;
   position: absolute;
-  top: 0; left: 0;
+  top: 0;
+  left: 0;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
 
-  * { box-sizing: content-box;}
+  * {
+    box-sizing: content-box;
+  }
 
   /* calendar style */
   .calendar {
@@ -26,16 +34,33 @@
         height: 30px;
         margin: 0;
         padding: 0;
+        line-height: 30px;
         vertical-align: baseline;
         text-align: center;
       }
       .prev, .next {
         width: 30px;
         cursor: pointer;
+
+        &:hover {
+          color: #c00;
+        }
       }
 
       .title {
         width: 180px;
+
+        div {
+          display: inline;
+          margin-left: 5px;
+          margin-right: 5px;
+          cursor: pointer;
+          font-weight: bold;
+
+          &:hover {
+            color: #c00;
+          }
+        }
       }
     }
     table {}

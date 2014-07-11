@@ -61,6 +61,25 @@ $('#gldp-single-date').calendar({
 });</pre>
                 </div>
             </div>
+            <!--year-->
+            <div class="page-header">
+                <h4>single year</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type="text" class="form-control" id="gldp-single-year" placeholder="请选择日期">
+                    </div>
+                </div>
+                <div class="col-md-6">
+<pre class="prettyprint linenums Lang-javascript">
+$('#gldp-single-date').calendar({
+    'type': 1,
+    't':, 2
+});</pre>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="sidebar">
@@ -90,6 +109,9 @@ $('#gldp-single-date').calendar({
         });
         $('#gldp-single-month').glDatePicker({
             type: 'month'
+        });
+        $('#gldp-single-year').glDatePicker({
+            type: 'day'
         });
     });
 </script>
