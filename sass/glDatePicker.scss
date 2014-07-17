@@ -21,6 +21,7 @@
   /* calendar style */
   .calendar {
     display: none;
+    min-width: 240px;
     background-color: #fff;
     box-shadow: 2px 2px 5px #e3e3e3;
 
@@ -67,16 +68,17 @@
       }
     }
     table {
+      width: 100%;
       border-top: 1px solid #ccc;
       border-left: 1px solid #ccc;
-      font: 14px/1.5 \5fae\8f6f\96c5\9ed1,tahoma,arial,\5b8b\4f53;
+      font: 12px/1.5 \5fae\8f6f\96c5\9ed1,tahoma,arial,\5b8b\4f53;
     }
     th, td {
       border-bottom: 1px solid #ccc;
       border-right: 1px solid #ccc;
     }
     th, td div {
-      padding: 5px;
+      padding: 5px 6px;
       text-align: center;
       font-weight: bold;
     }
@@ -99,6 +101,10 @@
         background-color: #fdefc0;
         color: #c00;
       }
+    }
+    td div.selected {
+      //background-color: #e96351;
+      color: #f33;
     }
     .outday {
       background-color: #f9f9f9 !important;

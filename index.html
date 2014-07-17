@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>glDatePicker</title>
-    <link rel="stylesheet" href="http://cdn.staticfile.org/prettify/r298/prettify.min.css"/>
-    <link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <!--<link rel="stylesheet" href="http://cdn.staticfile.org/prettify/r298/prettify.min.css"/>-->
+    <link rel="stylesheet" href="./vendor/google-code-prettify/prettify.css"/>
+    <!--<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>-->
+    <link rel="stylesheet" href="./vendor/bootstrap-3.2.0/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="./dist/css/glDatePicker.css"/>
     <style>
         /* show each line number */
@@ -80,6 +82,25 @@ $('#gldp-single-date').calendar({
 });</pre>
                 </div>
             </div>
+            <!--range-->
+            <div class="page-header">
+                <h4>range</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                        <input type="text" class="form-control" id="gl-range-day" placeholder="请选择日期">
+                    </div>
+                </div>
+                <div class="col-md-6">
+<pre class="prettyprint linenums Lang-javascript">
+$('#gldp-single-date').calendar({
+    'type': 1,
+    't':, 2
+});</pre>
+                </div>
+            </div>
         </div>
         <div class="col-md-3">
             <div class="sidebar">
@@ -93,9 +114,11 @@ $('#gldp-single-date').calendar({
 <!-- content end -->
 
 <!-- script import -->
-<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>
+<!--<script src="http://cdn.staticfile.org/jquery/2.1.1-rc2/jquery.min.js"></script>-->
+<script src="./vendor/jQuery/jquery-2.1.1.min.js"></script>
 <!-- google-code-prettify -->
-<script src="http://cdn.staticfile.org/prettify/r298/prettify.min.js"></script>
+<!--<script src="http://cdn.staticfile.org/prettify/r298/prettify.min.js"></script>-->
+<script src="./vendor/google-code-prettify/prettify.js"></script>
 <!-- glDatePicker -->
 <script src="./js/glDatePicker.js"></script>
 <!-- page script -->
@@ -105,13 +128,20 @@ $('#gldp-single-date').calendar({
         prettyPrint();
         // single-date
         $('#gldp-single-day').glDatePicker({
-            type: 'day'
+            type: 'day',
+            'selectedDate': new Date()
         });
         $('#gldp-single-month').glDatePicker({
-            type: 'month'
+            type: 'month',
+            format: 'yyyy年mm月'
         });
         $('#gldp-single-year').glDatePicker({
-            type: 'day'
+            type: 'year',
+            format: 'yyyy年'
+        });
+        $('#gl-range-day').glDateRangePicker({
+            type: 'day',
+            format: 'yyyy-mm-dd'
         });
     });
 </script>
