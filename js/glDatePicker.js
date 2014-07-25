@@ -985,7 +985,10 @@
         month: date.getMonth(),
         date: date.getDate(),
         time: date.getTime(),
-        day: date.getDay()
+        day: date.getDay(),
+        hour: date.getHours(),
+        minute: date.getMinutes(),
+        second: date.getSeconds()
       };
     },
     format: function(date, format) {
@@ -993,9 +996,13 @@
       //content = content.replace(/qq/g, this._quarterOfYear() + 1); // 季度
       //content = content.replace(/wk/g, this._dow()); // 星期
       //content = content.replace(/woy/g, this._weekOfYear()); // 星期
+        var month = date.getMonth() + 1;
+        var data = date.getDate();
+        if(month < 10){ month = "0" + month; }
+        if(data < 10){ data = "0" + data; }
       content = content.replace(/yyyy/g, date.getFullYear()); // 年
-      content = content.replace(/mm/g, date.getMonth() + 1); // 月
-      content = content.replace(/dd/g, date.getDate()); // 日
+      content = content.replace(/mm/g, month); // 月
+      content = content.replace(/dd/g, data); // 日
       content = content.replace(/HH/g, date.getHours()); // 时
       content = content.replace(/MM/g, date.getMinutes()); // 分
       content = content.replace(/SS/g, date.getSeconds()); // 秒
