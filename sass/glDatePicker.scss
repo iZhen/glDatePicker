@@ -32,7 +32,7 @@
       height: 30px;
       border: 1px solid #ccc;
 
-      .prev, .next, .title {
+      .prev, .next, .title, .foot .clear {
         display: inline-block;
         height: 30px;
         margin: 0;
@@ -68,6 +68,48 @@
         }
       }
     }
+
+    /* foot*/
+    .foot {
+      width: 100%;
+      height: 30px;
+      border: 1px solid #ccc;
+      border-top-width: 0;
+
+      .clear, .ok {
+        display: inline-block;
+        height: 30px;
+        margin: 0 10px;
+        padding: 0;
+        line-height: 30px;
+        vertical-align: baseline;
+        text-align: center;
+      }
+      .ok {
+        float: right;
+      }
+    }
+
+    /* time */
+    .time {
+      width: 100%;
+      height: 30px;
+      border: 1px solid #ccc;
+      //border-top-width: 0;
+      text-align: center;
+
+      .separator {
+        display: inline-block;
+        margin: 0 5px;
+        vertical-align: baseline;
+        font-weight: bold;
+      }
+      .time-select {
+        margin-top: 5px;
+      }
+    }
+
+
     table {
       width: 100%;
       border-top: 1px solid #ccc;

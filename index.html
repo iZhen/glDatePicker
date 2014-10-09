@@ -1,115 +1,115 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>glDatePicker</title>
-    <!--<link rel="stylesheet" href="http://cdn.staticfile.org/prettify/r298/prettify.min.css"/>-->
-    <link rel="stylesheet" href="./vendor/google-code-prettify/prettify.css"/>
-    <!--<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>-->
-    <link rel="stylesheet" href="./vendor/bootstrap-3.2.0/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="./dist/css/glDatePicker.css"/>
-    <style>
-        /* show each line number */
-        li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8{ list-style-type: decimal !important }
-    </style>
+  <meta charset="UTF-8">
+  <title>glDatePicker</title>
+  <!--<link rel="stylesheet" href="http://cdn.staticfile.org/prettify/r298/prettify.min.css"/>-->
+  <link rel="stylesheet" href="./vendor/google-code-prettify/prettify.css"/>
+  <!--<link rel="stylesheet" href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>-->
+  <link rel="stylesheet" href="./vendor/bootstrap-3.2.0/css/bootstrap.min.css"/>
+  <link rel="stylesheet" href="./dist/css/glDatePicker.css"/>
+  <style>
+    /* show each line number */
+    li.L0, li.L1, li.L2, li.L3, li.L5, li.L6, li.L7, li.L8{ list-style-type: decimal !important }
+  </style>
 </head>
 <body>
 <!-- content start -->
 <!-- header -->
 <header>
-    <div class="container">
-        <a href="javascript:void(0);">glDatePicker</a>
-    </div>
+  <div class="container">
+    <a href="javascript:void(0);">glDatePicker</a>
+  </div>
 </header>
 <!-- calendar demo body -->
 <div class="container">
-    <div class="row">
-        <div class="col-md-9">
-            <!--day-->
-            <div class="page-header">
-                <h4>single day</h4>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        <input type="text" class="form-control" id="gldp-single-day" placeholder="请选择日期">
-                    </div>
-                </div>
-                <div class="col-md-6">
-<pre class="prettyprint linenums Lang-javascript">
-$('#gldp-single-date').calendar({
-    'type': 1,
-    't':, 2
-});</pre>
-                </div>
-            </div>
-            <!--month-->
-            <div class="page-header">
-                <h4>single month</h4>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        <input type="text" class="form-control" id="gldp-single-month" placeholder="请选择日期">
-                    </div>
-                </div>
-                <div class="col-md-6">
-<pre class="prettyprint linenums Lang-javascript">
-$('#gldp-single-date').calendar({
-    'type': 1,
-    't':, 2
-});</pre>
-                </div>
-            </div>
-            <!--year-->
-            <div class="page-header">
-                <h4>single year</h4>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        <input type="text" class="form-control" id="gldp-single-year" placeholder="请选择日期">
-                    </div>
-                </div>
-                <div class="col-md-6">
-<pre class="prettyprint linenums Lang-javascript">
-$('#gldp-single-date').calendar({
-    'type': 1,
-    't':, 2
-});</pre>
-                </div>
-            </div>
-            <!--range-->
-            <div class="page-header">
-                <h4>range</h4>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                        <input type="text" class="form-control" id="gl-range-day" placeholder="请选择日期">
-                    </div>
-                </div>
-                <div class="col-md-6">
-<pre class="prettyprint linenums Lang-javascript">
-$('#gldp-single-date').calendar({
-    'type': 1,
-    't':, 2
-});</pre>
-                </div>
-            </div>
+  <div class="row">
+    <div class="col-md-9">
+      <!--day-->
+      <div class="page-header">
+        <h4>single day</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <input type="text" class="form-control" id="gldp-single-day" placeholder="请选择日期">
+          </div>
         </div>
-        <div class="col-md-3">
-            <div class="sidebar">
-                <ul class="nav">
-                    <li><a href="#panel-1">单日期选择</a></li>
-                </ul>
-            </div>
+        <div class="col-md-6">
+<pre class="prettyprint linenums Lang-javascript">
+$('#gldp-single-date').calendar({
+    'type': 1,
+    't':, 2
+});</pre>
         </div>
+      </div>
+      <!--month-->
+      <div class="page-header">
+        <h4>single month</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <input type="text" class="form-control" id="gldp-single-month" placeholder="请选择日期">
+          </div>
+        </div>
+        <div class="col-md-6">
+<pre class="prettyprint linenums Lang-javascript">
+$('#gldp-single-date').calendar({
+    'type': 1,
+    't':, 2
+});</pre>
+        </div>
+      </div>
+      <!--year-->
+      <div class="page-header">
+        <h4>single year</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <input type="text" class="form-control" id="gldp-single-year" placeholder="请选择日期">
+          </div>
+        </div>
+        <div class="col-md-6">
+<pre class="prettyprint linenums Lang-javascript">
+$('#gldp-single-date').calendar({
+    'type': 1,
+    't':, 2
+});</pre>
+        </div>
+      </div>
+      <!--range-->
+      <div class="page-header">
+        <h4>range</h4>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <input type="text" class="form-control" id="gl-range-day" placeholder="请选择日期">
+          </div>
+        </div>
+        <div class="col-md-6">
+<pre class="prettyprint linenums Lang-javascript">
+$('#gldp-single-date').calendar({
+    'type': 1,
+    't':, 2
+});</pre>
+        </div>
+      </div>
     </div>
+    <div class="col-md-3">
+      <div class="sidebar">
+        <ul class="nav">
+          <li><a href="#panel-1">单日期选择</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 </div>
 <!-- content end -->
 
@@ -123,27 +123,29 @@ $('#gldp-single-date').calendar({
 <script src="./js/glDatePicker.js"></script>
 <!-- page script -->
 <script>
-    $(function(){
-        // pretty code tag
-        prettyPrint();
-        // single-date
-        $('#gldp-single-day').glDatePicker({
-            type: 'day',
-            format: 'yyyy-mm-dd'
-        });
-        $('#gldp-single-month').glDatePicker({
-            type: 'month',
-            format: 'yyyy年mm月'
-        });
-        $('#gldp-single-year').glDatePicker({
-            type: 'year',
-            format: 'yyyy年'
-        });
-        $('#gl-range-day').glDateRangePicker({
-            type: 'day',
-            format: 'yyyy-mm-dd'
-        });
+  $(function(){
+    // pretty code tag
+    prettyPrint();
+    // single-date
+    $('#gldp-single-day').glDatePicker({
+      type: 'day',
+      allowTimeSelect: true,
+      selectedDate: new Date(),
+      format: 'yyyy-mm-dd HH:MM:SS'
     });
+    $('#gldp-single-month').glDatePicker({
+      type: 'month',
+      format: 'yyyy年mm月'
+    });
+    $('#gldp-single-year').glDatePicker({
+      type: 'year',
+      format: 'yyyy年'
+    });
+    $('#gl-range-day').glDateRangePicker({
+      type: 'day',
+      format: 'yyyy-mm-dd'
+    });
+  });
 </script>
 </body>
 </html>

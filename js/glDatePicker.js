@@ -70,6 +70,8 @@
     todayDate: new Date(),
     // 选择的日期
     selectedDate: null,
+    // 允许时间选择
+    allowTimeSelect: false,
     // 允许月份选择
     allowMonthSelect: true,
     // 允许年份选择
@@ -90,6 +92,8 @@
     firstDate: null,
     // 文本显示
     text: {
+      ok: '确定',
+      clear: '清除',
       // 往前箭头
       prevArrow: '\u25c4',
       // 往后箭头
@@ -116,11 +120,14 @@
         if (!ele || !date) {
           return;
         }
+        !format? format = 'yyyy-mm-dd': format;
         if (format == null) {
           ele.val(date.toLocaleDateString());
         } else {
           ele.val(dateHelper.format(date, format));
         }
+        ele.blur();
+        ele.change();
       },
       // 显示时事件
       onShow: function(calendar) {
@@ -255,18 +262,18 @@
       }
       // bind element event
       $ele
-        .on('click', (function(self) {
-          return function(e) {
-            $(this).blur();
-            self.show(e);
-          };
-        })(self))
-        .on('focus', (function(self) {
-          return function(e) {
-            $(this).blur();
-            self.show(e);
-          };
-        })(self));
+          .on('click', (function(self) {
+            return function(e) {
+              $(this).blur();
+              self.show(e);
+            };
+          })(self))
+          .on('focus', (function(self) {
+            return function(e) {
+              $(this).blur();
+              self.show(e);
+            };
+          })(self));
 
       // show selected date
       options.events.onClick($ele, options.selectedDate, options.format);
@@ -281,13 +288,14 @@
           // not has NAME_SPACE_SINGLE and 'calendar' class name at same time
           // it's should be use common calendar object.
           var $wrap = $('.' + NAME_SPACE_SINGLE + '-dropdown');
-          if(self.calendar.renderTo.attr('dp-ele') != self.ele.attr('dp-id')) {
+          //TODO：self.calendar.renderTo.attr('dp-ele') != self.ele.attr('dp-id')
+          if(true/*self.calendar.renderTo.attr('dp-ele') != self.ele.attr('dp-id')*/) {
             // common calendar not used for current element.
             // 1. hide element and remove dp-id
             $wrap.hide();
             $('.' + NAME_SPACE_SINGLE + ' .calendar')
-              .removeAttr('dp-ele')
-              .hide();
+                .removeAttr('dp-ele')
+                .hide();
             // 2. show self calendar
             self.calendar.renderTo.show();
             // 3. set position
@@ -299,7 +307,21 @@
             self.calendar.setClickEvent((function(self) {
               return function(data) {
                 self.options.events.onClick(self.ele, data, self.options.format);
-                self.options.events.onHide($('.glDatePicker.glDatePicker-dropdown'))
+                if(!self.options.allowTimeSelect) {
+                  self.options.events.onHide($('.glDatePicker.glDatePicker-dropdown'));
+                }
+                //self.options.events.onHide($('.glDatePicker.glDatePicker-dropdown'));
+              };
+            })(self));
+            self.calendar.setOkEvent((function(self) {
+              return function(data) {
+                //self.options.events.onClick(self.ele, data, self.options.format);
+                self.options.events.onHide($('.glDatePicker.glDatePicker-dropdown'));
+              };
+            })(self));
+            self.calendar.setClearEvent((function(self) {
+              return function(data) {
+                self.ele.val('');
               };
             })(self));
             self.calendar.render();
@@ -323,6 +345,18 @@
 
         // build calendar content
 
+      },
+      set: function(date) {
+        var self = this;
+        var ele = self.ele;
+        var options = self.options;
+        var calendar = self.calendar;
+
+        options.selectedDate = date;
+
+        options.events.onClick(ele, date, options.format);
+
+        self.render();
       }
     };
     return dp;
@@ -376,9 +410,9 @@
           var $calendar = $('.calendar:visible', $wrap);
 
           if ($calendar.length
-            && !$('[dp-id="' + $calendar.attr('dp-ele') + '"]').is(target)
-            && !$calendar.is(target)
-            && $calendar.has(target).length === 0) {
+              && !$('[dp-id="' + $calendar.attr('dp-ele') + '"]').is(target)
+              && !$calendar.is(target)
+              && $calendar.has(target).length === 0) {
             $wrap.hide();
           }
         };
@@ -418,9 +452,9 @@
           var $calendar = $('.calendar:visible', $wrap);
 
           if ($calendar.length
-            && !$('[dp-id="' + $calendar.attr('dp-ele') + '"]').is(target)
-            && !$calendar.is(target)
-            && $calendar.has(target).length === 0) {
+              && !$('[dp-id="' + $calendar.attr('dp-ele') + '"]').is(target)
+              && !$calendar.is(target)
+              && $calendar.has(target).length === 0) {
             $wrap.hide();
           }
         };
@@ -550,6 +584,36 @@
         // tbody
         var $tbody = ele.tbody = $('<tbody/>');
         $tbody.appendTo($table);
+
+        // time
+        var $time = ele.time = $('<div class="time"/>');
+        $time.appendTo($target);
+        // hours
+        var $hour = ele.hour = $('<select class="hour time-select" placeholder="时"/>');
+        $hour.appendTo($time);
+        for(var i = 0; i < 24; i++) { $hour.append('<option value="' + i +'">' + i + '</option>'); }
+        // minutes
+        var $minute = ele.minute = $('<select class="minute time-select" placeholder="分"/>');
+        $minute.appendTo($time);
+        for(var i = 0; i < 60; i++) { $minute.append('<option value="' + i +'">' + i + '</option>'); }
+        // second
+        var $second = ele.second = $('<select class="second time-select" placeholder="秒"/>');
+        $second.appendTo($time);
+        for(var i = 0; i < 60; i++) { $second.append('<option value="' + i +'">' + i + '</option>'); }
+        // splite
+        $hour.after('<span class="separator">:</span>');
+        $minute.after('<span class="separator">:</span>');
+
+        // foot
+        var $foot = ele.foot = $('<div class="foot"></div>');
+        $foot.appendTo($target);
+        // clear
+        var $clear = ele.clear = $('<a class="clear" href="javascript:void(0);"></a>');
+        $clear.appendTo($foot);
+        // ok
+        var $ok = ele.ok = $('<a class="ok" href="javascript:void(0);"></a>');
+        $ok.appendTo($foot);
+
       },
       setOptions: function(options) {
         // add this alias
@@ -571,6 +635,16 @@
           this.onClick = func;
         }
       },
+      setOkEvent: function(func) {
+        if(typeof func == 'function') {
+          this.onOk = func;
+        }
+      },
+      setClearEvent: function(func) {
+        if(typeof func == 'function') {
+          this.onClear = func;
+        }
+      },
       render: function(type) {
         var self = this;
         var ele = self.ele;
@@ -579,6 +653,37 @@
         // if cur type is null
         // set the type by options
         type = type || self.type;
+
+        // clear
+        ele.clear.text(options.text.clear);
+        ele.clear.off();
+        if(self.onClear) {
+          ele.clear.on('click', self.onClear);
+        }
+
+        // ok
+        ele.ok.text(options.text.ok);
+        ele.ok.off();
+        if(self.onOk) {
+          ele.ok.on('click', self.onOk);
+        }
+
+        // events
+        ele.hour.off().on('change', function(e) {
+          var date = options.selectedDate;
+          date.setHours(ele.hour.val());
+          self.onClick(date);
+        });
+        ele.minute.off().on('change', function(e) {
+          var date = self.options.selectedDate;
+          date.setMinutes(ele.minute.val());
+          self.onClick(date);
+        });
+        ele.second.off().on('change', function(e) {
+          var date = self.options.selectedDate;
+          date.setSeconds(ele.second.val());
+          self.onClick(date);
+        });
 
         // empty content
         ele.prev.off();
@@ -599,6 +704,13 @@
         self._setTitle(type);
         // body set
         self._setBody(type);
+        // time set
+        if(options.allowTimeSelect) {
+          ele.time.show();
+          self._setTime();
+        } else {
+          ele.time.hide();
+        }
 
 
         /*switch (type) {
@@ -695,37 +807,37 @@
         switch(type) {
           case 'day':
             ele.year
-              .html(options.firstDate.getFullYear() + options.text.year)
-              .on('click', (function(self, type) {
-                return function(e) {
-                  self.render('year');
-                };
-              })(self, type));
+                .html(options.firstDate.getFullYear() + options.text.year)
+                .on('click', (function(self, type) {
+                  return function(e) {
+                    self.render('year');
+                  };
+                })(self, type));
             ele.month
-              .html(options.text.moy[options.firstDate.getMonth()])
-              .on('click', (function(self, type) {
-                return function(e) {
-                  self.render('month');
-                };
-              })(self, type));
+                .html(options.text.moy[options.firstDate.getMonth()])
+                .on('click', (function(self, type) {
+                  return function(e) {
+                    self.render('month');
+                  };
+                })(self, type));
             break;
           case 'month':
             ele.year
-              .html(options.firstDate.getFullYear() + options.text.year)
-              .on('click', (function(self, type) {
-                return function(e) {
-                  self.render('year');
-                };
-              })(self, type));
+                .html(options.firstDate.getFullYear() + options.text.year)
+                .on('click', (function(self, type) {
+                  return function(e) {
+                    self.render('year');
+                  };
+                })(self, type));
             ele.month
-              .hide();
+                .hide();
             break;
           case 'year':
             var year = options.firstDate.getFullYear();
             ele.year
-              .html((year - 12) + options.text.year + " - " + (year + 12) + options.text.year);
+                .html((year - 12) + options.text.year + " - " + (year + 12) + options.text.year);
             ele.month
-              .hide();
+                .hide();
             break;
           default: break;
         }
@@ -767,8 +879,8 @@
         for (var i = options.startDayOfWeek; i < options.startDayOfWeek + 7; i++) {
           var weekday = i % 7;
           var $dow = $("<th/>")
-            .html(options.text.dow[weekday])
-            .addClass(weekday == 0 || weekday == 6 ? 'weekend' : 'weekday');
+              .html(options.text.dow[weekday])
+              .addClass(weekday == 0 || weekday == 6 ? 'weekend' : 'weekday');
           $dow.appendTo($trHead);
         }
 
@@ -804,13 +916,13 @@
 
             // add date content
             $cellDate
-              .html(curDate.getDate())
-              .data('date', _curDate);
+                .html(curDate.getDate())
+                .data('date', _curDate);
 
             if (curDate.getMonth() != curMonth) {
               // set other month
               $cellDate
-                .addClass('outday');
+                  .addClass('outday');
             } else {
               $cellDate.on('click', (function(self, _curDate){
                 return function(e) {
@@ -822,7 +934,7 @@
             // set weekday & weekend
             var dow = curDate.getDay();
             if (dow == 0
-              || dow == 6) {
+                || dow == 6) {
               $cellDate.addClass("weekend");
             } else {
               $cellDate.addClass("weekday");
@@ -833,7 +945,7 @@
 
             // set selected
             if (curDate.toLocaleDateString()
-              == options.selectedDate.toLocaleDateString()) {
+                == options.selectedDate.toLocaleDateString()) {
               $cellDate.addClass("selected");
               $trRow.addClass("selected");
             }
@@ -874,8 +986,8 @@
           var $tdQuarter = $('<td/>').appendTo($trRow);
           var $cellQuarter = $('<div/>').appendTo($tdQuarter);
           $cellQuarter
-            .html(options.text.qoy[r])
-            .addClass('quarter');
+              .html(options.text.qoy[r])
+              .addClass('quarter');
 
           // add month
           for (var i = 0; i < 3; i++) {
@@ -898,7 +1010,7 @@
 
             // add selected
             if (curDate.getMonth() == options.selectedDate.getMonth()
-              && curDate.getFullYear() == options.selectedDate.getFullYear()) {
+                && curDate.getFullYear() == options.selectedDate.getFullYear()) {
               $cellMonth.addClass("selected");
               $trRow.addClass("selected");
             }
@@ -943,7 +1055,7 @@
             })(self, _curDate));
 
             if (curDate.getFullYear()
-              == options.selectedDate.getFullYear()) {
+                == options.selectedDate.getFullYear()) {
               $cell.addClass("selected");
             }
 
@@ -951,6 +1063,16 @@
           }
         }
 
+      },
+      _setTime: function() {
+        var self = this;
+        var ele = self.ele;
+        var options = self.options;
+
+        var date = options.selectedDate;
+        ele.hour.val(date.getHours());
+        ele.minute.val(date.getMinutes());
+        ele.second.val(date.getSeconds());
       },
       _clickEvent: function(date, type) {
         var self = this;
@@ -996,16 +1118,23 @@
       //content = content.replace(/qq/g, this._quarterOfYear() + 1); // 季度
       //content = content.replace(/wk/g, this._dow()); // 星期
       //content = content.replace(/woy/g, this._weekOfYear()); // 星期
-        var month = date.getMonth() + 1;
-        var data = date.getDate();
-        if(month < 10){ month = "0" + month; }
-        if(data < 10){ data = "0" + data; }
+      var month = date.getMonth() + 1;
+      var data = date.getDate();
+      if(month < 10){ month = "0" + month; }
+      if(data < 10){ data = "0" + data; }
       content = content.replace(/yyyy/g, date.getFullYear()); // 年
       content = content.replace(/mm/g, month); // 月
       content = content.replace(/dd/g, data); // 日
-      content = content.replace(/HH/g, date.getHours()); // 时
-      content = content.replace(/MM/g, date.getMinutes()); // 分
-      content = content.replace(/SS/g, date.getSeconds()); // 秒
+
+      var hour = date.getHours();
+      hour = hour < 10 ? ('0' + hour) : hour;
+      content = content.replace(/HH/g, hour); // 时
+      var minute = date.getMinutes();
+      minute = minute < 10 ? ('0' + minute) : minute;
+      content = content.replace(/MM/g, minute); // 分
+      var second = date.getSeconds();
+      second = second < 10 ? ('0' + second) : second;
+      content = content.replace(/SS/g, second); // 秒
       return content;
     },
     addDay: function(d, days) {
@@ -1045,7 +1174,7 @@
     },
     weekOfYear: function(d, firstDayOfWeek) {
       var fdow = (typeof (firstDayOfWeek) == "number") ? firstDayOfWeek : 1,
-        firstDateOfYear = new Date(d.getFullYear(), 0, 0);
+          firstDateOfYear = new Date(d.getFullYear(), 0, 0);
       // 计算
       var addDay = (new Date(d.getFullYear(), 0, 1)).getDay() - fdow;
       if (addDay < 0) {
@@ -1080,9 +1209,15 @@
         content = content.replace(/yyyy/g, this.date.getFullYear()); // 年
         content = content.replace(/mm/g, this.date.getMonth() + 1); // 月
         content = content.replace(/dd/g, this.date.getDate()); // 日
-        content = content.replace(/HH/g, this.date.getHours()); // 时
-        content = content.replace(/MM/g, this.date.getMinutes()); // 分
-        content = content.replace(/SS/g, this.date.getSeconds()); // 秒
+        var hour = this.date.getHours();
+        hour = hour < 10 ? (0 + hour) : hour;
+        content = content.replace(/HH/g, hour); // 时
+        var minute = this.date.getMinutes();
+        minute = minute < 10 ? (0 + minute) : minute;
+        content = content.replace(/MM/g, minute); // 分
+        var second = this.date.getSeconds();
+        second = second < 10 ? (0 + second) : second;
+        content = content.replace(/SS/g, second); // 秒
         return content;
       }
     };
