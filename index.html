@@ -34,6 +34,7 @@
           <div class="input-group">
             <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             <input type="text" class="form-control" id="gldp-single-day" placeholder="请选择日期">
+            <input type="text" class="form-control" id="gldp-single-day-a" placeholder="请选择日期">
           </div>
         </div>
         <div class="col-md-6">
@@ -133,6 +134,15 @@ $('#gldp-single-date').calendar({
       selectedDate: new Date(),
       format: 'yyyy-mm-dd HH:MM:SS'
     });
+    $('#gldp-single-day-a').glDatePicker({
+      type: 'day',
+      allowTimeSelect: true,
+      selectedDate: new Date(),
+      format: 'yyyy-mm-dd HH:MM:SS'
+    });
+
+    var dayT = $('#gldp-single-day').glDatePicker();
+
     $('#gldp-single-month').glDatePicker({
       type: 'month',
       format: 'yyyy年mm月'

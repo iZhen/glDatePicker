@@ -672,17 +672,17 @@
         ele.hour.off().on('change', function(e) {
           var date = options.selectedDate;
           date.setHours(ele.hour.val());
-          self.onClick(date);
+          self._clickEvent(date, 'day', true);
         });
         ele.minute.off().on('change', function(e) {
           var date = self.options.selectedDate;
           date.setMinutes(ele.minute.val());
-          self.onClick(date);
+          self._clickEvent(date, 'day', true);
         });
         ele.second.off().on('change', function(e) {
           var date = self.options.selectedDate;
           date.setSeconds(ele.second.val());
-          self.onClick(date);
+          self._clickEvent(date, 'day', true);
         });
 
         // empty content
@@ -1074,15 +1074,25 @@
         ele.minute.val(date.getMinutes());
         ele.second.val(date.getSeconds());
       },
-      _clickEvent: function(date, type) {
+      _clickEvent: function(date, type, onlyTime) {
         var self = this;
-        self.options.firstDate = date;
+
+        if(onlyTime) {
+          self.options.firstDate.setHours(date.getHours());
+          self.options.firstDate.setMinutes(date.getMinutes());
+          self.options.firstDate.setSeconds(date.getSeconds());
+        } else {
+          self.options.firstDate.setFullYear(date.getFullYear());
+          self.options.firstDate.setMonth(date.getMonth());
+          self.options.firstDate.setDate(date.getDate());
+        }
 
         if(type != self.type) {
           self.render();
         } else {
           if(self.onClick) {
-            self.onClick(date);
+            self.options.selectedDate = self.options.firstDate;
+            self.onClick(self.options.firstDate);
           }
         }
       }
