@@ -352,7 +352,7 @@
         var options = self.options;
         var calendar = self.calendar;
 
-        options.selectedDate = date;
+        options.selectedDate = options.firstDate = date;
 
         options.events.onClick(ele, date, options.format);
 
@@ -404,7 +404,7 @@
       $wrap = $('<div class="' + NAME_SPACE_SINGLE + ' ' + NAME_SPACE_SINGLE + '-dropdown"/>');
       $wrap.appendTo('body');
       // bind hide event
-      $(document).on('mouseup', (function($wrap){
+      $(document).on('mousedown', (function($wrap){
         return function(e) {
           var target = e.target;
           var $calendar = $('.calendar:visible', $wrap);
@@ -922,7 +922,13 @@
             if (curDate.getMonth() != curMonth) {
               // set other month
               $cellDate
-                  .addClass('outday');
+                  .addClass('outday')
+                  .on('click', (function(self, _curDate){
+                    return function(e) {
+                      self.options.firstDate = _curDate;
+                      self.render();
+                    }
+                  })(self, _curDate));
             } else {
               $cellDate.on('click', (function(self, _curDate){
                 return function(e) {
@@ -1077,7 +1083,12 @@
       _clickEvent: function(date, type, onlyTime) {
         var self = this;
 
+        var selected_date = self.options.selectedDate || self.options.firstDate;
+
         if(onlyTime) {
+          self.options.firstDate.setFullYear(selected_date.getFullYear());
+          self.options.firstDate.setMonth(selected_date.getMonth());
+          self.options.firstDate.setDate(selected_date.getDate());
           self.options.firstDate.setHours(date.getHours());
           self.options.firstDate.setMinutes(date.getMinutes());
           self.options.firstDate.setSeconds(date.getSeconds());

@@ -128,7 +128,7 @@ $('#gldp-single-date').calendar({
     // pretty code tag
     prettyPrint();
     // single-date
-    $('#gldp-single-day').glDatePicker({
+    var dayT = $('#gldp-single-day').glDatePicker({
       type: 'day',
       allowTimeSelect: true,
       selectedDate: new Date(),
@@ -141,9 +141,10 @@ $('#gldp-single-date').calendar({
       format: 'yyyy-mm-dd HH:MM:SS'
     });
 
-    var dayT = $('#gldp-single-day').glDatePicker();
+    $('#gldp-single-day').glDatePicker(true).set(new Date('2010-1-1'));
+    $('#gldp-single-day-a').glDatePicker(true).set(new Date('2010-1-2'));
 
-    $('#gldp-single-month').glDatePicker({
+    /*$('#gldp-single-month').glDatePicker({
       type: 'month',
       format: 'yyyy年mm月'
     });
@@ -154,7 +155,7 @@ $('#gldp-single-date').calendar({
     $('#gl-range-day').glDateRangePicker({
       type: 'day',
       format: 'yyyy-mm-dd'
-    });
+    });*/
   });
 </script>
 </body>
